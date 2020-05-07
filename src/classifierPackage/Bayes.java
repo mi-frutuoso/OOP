@@ -16,6 +16,7 @@ public class Bayes<T> implements Classifier<T>{
 	private String score;
 	private int[][][] matrix = new int[1][][];
 	private int[][] max_values = new int[1][];
+	private int[] predictions;
 	
 	public Bayes(String train_file, String test_file, String score) {
 		this.train_file = train_file;
@@ -35,8 +36,9 @@ public class Bayes<T> implements Classifier<T>{
 
 	@Override
 	public void predict() {
-		// TODO Auto-generated method stub
-		
+		file = new FileClass(matrix, test_file, max_values);
+		file.readFile();
+		tree.predict(matrix[0]);
 	}
 
 	@Override

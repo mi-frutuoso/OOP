@@ -7,8 +7,9 @@ import metricsPackage.*;
 public class Main {
 
 	public static void main(String[] args) {
-		Classifier<Integer> bayes = new Bayes<Integer>("bias-train.csv", "", "MDL");
+		Classifier<Integer> bayes = new Bayes<Integer>("bias-train.csv", "bias-test.csv", "MDL");
 		bayes.train();
+		bayes.predict();
 		Integer C_true[] = new Integer[4];
 		C_true[0] = 1;
 		C_true[1] = 11;

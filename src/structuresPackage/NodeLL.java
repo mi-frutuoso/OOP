@@ -8,6 +8,10 @@ public class NodeLL extends NodeAbstract{
 	public NodeLL(int[][] training, int[] max_values, int node_id) {
 		super(training, max_values, node_id);
 	}
+	
+	public NodeLL(int[][] training, int[] max_values, int node_id, int parent) {
+		super(training, max_values, node_id);
+	}
 
 	@Override
 	public void computeAlpha() {
