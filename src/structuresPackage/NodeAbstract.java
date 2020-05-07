@@ -23,4 +23,8 @@ public abstract class NodeAbstract implements Node{
 	public void computeTheta() {
 		
 	}
+	
+	public double[] returnAlpha() {
+		return alpha;
+	}
 }

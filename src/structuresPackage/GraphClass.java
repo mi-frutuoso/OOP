@@ -39,4 +39,9 @@ public class GraphClass implements Graph{
 		}
 	}
 
+	@Override
+	public Node[] returnNodes() {
+		return nodes;
+	}
+
 }

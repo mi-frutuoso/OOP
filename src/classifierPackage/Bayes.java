@@ -29,6 +29,8 @@ public class Bayes<T> implements Classifier<T>{
 		file.readFile();
 		graph = new GraphClass(matrix[0], max_values[0], score);
 		graph.makeStruct();
+		tree = new TreeClass(matrix[0], max_values[0], graph.returnNodes());
+		tree.makeStruct();
 	}
 
 	@Override
