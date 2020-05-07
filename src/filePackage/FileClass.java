@@ -4,18 +4,35 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Reads a training or test file into an Integer Matrix, also calculates the maximum of each set of features.
+ * 
+ */
 public class FileClass implements FileInterface{
 	
 	private int[][][] matrix;
 	private int[][] max_values;
 	private String filename;
-	
+
+	/**
+	 * Constructs a training/test file reader.
+	 * <br>
+	 * Files must have (n - 1) comma separated columns of values (X) and a last column with the <i>class</i> (C).
+	 * Arrays must have a one element first dimension, so that changing the remaining dimensions inside the object will affect the remaining dimensions outside the object. 
+	 * 
+ 	 * @param arg_matrix Three-dimensional matrix in the format [1][N][N], contains file contents. 
+	 * @param filename Canonical or relative path to the training/test file.
+	 * @param max_values Two-dimensional matrix in the format [1][N], contains maximum of each set of features.
+	 */
 	public FileClass(int[][][] arg_matrix, String filename, int[][] max_values) {
 		this.matrix = arg_matrix;
 		this.filename = filename;
 		this.max_values = max_values;
 	}
 
+	/**
+	 * Call to fill <b>matrix</b> (given in constructor) with file (<b>filename</b>) contents.
+	 */
 	@Override
 	public void readFile() {
 		try {
