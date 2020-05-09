@@ -28,13 +28,8 @@ public class IDTranslator implements Translator {
 		int i = 0;
 		seed = new ArrayList<String>(original.size());
 		for(String c : original) {
-			System.out.println("iteration "+i+" c= "+c);
-			if(seed.contains(c)) {
-				System.out.println("contains");
-				translation[i]=seed.indexOf(c);
-			}
+			if(seed.contains(c)) translation[i]=seed.indexOf(c);
 			else {
-				System.out.println("new value");
 				seed.add(c);
 				translation[i]=i;
 				i++;
