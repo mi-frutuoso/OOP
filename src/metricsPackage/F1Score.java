@@ -7,14 +7,23 @@ public class F1Score<T> implements Metrics<T> {
 	private ArrayList<T> classes = new ArrayList<T>();
 	private ArrayList<Float> f1_c = new ArrayList<Float>();
 	private T[] Ctest;
+	private T[] res;
 	float f1_avg;
 	
-	public F1Score(T[] Ctest){
+	public F1Score(T[] Ctest,T[] res){
 		this.Ctest = Ctest;
+		this.res = res;
 	}
-
+	
+	
 	@Override
-	public void evaluate(T[] res) {
+	public void evaluate() {
+		// array verification
+		if(Ctest.length != res.length) {
+			System.out.println("F1Score error: Predicted and test classes' array not consistent. Exiting...");
+			System.exit(1);
+		}
+		
 		// identify each different class
 		for (T c : Ctest)
 			if(!classes.contains(c)) insert(c);
@@ -53,7 +62,13 @@ public class F1Score<T> implements Metrics<T> {
 		// conclude weighted average F1score computation
 		f1_avg = (float) f1_avg/Ctest.length;
 	}
-	
+	/**
+	 * This method allows to add an identified class from the test set to a list that stores all the classes.
+	 * Instead of appending, it inserts each element maintaining the lexicographical order of the set of classes.
+	 * This allows the ArrayList 'f1_c' to follow the same order and to present the results in a sorted way.
+	 * 
+	 * @param elem Generic class of the test set
+	 */
 	private void insert(T elem){					// insertion with lexicographical order
 	    // iterate over classes[]
 	    for (int i = 0; i < classes.size(); i++) {
@@ -66,9 +81,20 @@ public class F1Score<T> implements Metrics<T> {
 	    classes.add(elem);							// insert in the end
 	}
 
+	
 	@Override
-	public String toString() {
-		return "[" + f1_c + ", " + f1_avg +"]";
+	public String toString()
+	{
+	    StringBuilder str = new StringBuilder();	// var where string is appended to
+	    str.append("[");
+
+	    // append scores for all classes
+	    for(int i = 0; i < classes.size(); i++)
+		    str.append(""+ classes.get(i) + ": "+ String.format("%.2f", f1_c.get(i))+", "); 
+	    
+	    // append last element (avg)
+	    str.append(""+ String.format("%.2f", f1_avg)+"]");
+	    return str.toString();
 	}
 	
 //	@Override									// DEBUG purposes

@@ -12,6 +12,10 @@ public interface Translator {
 	 * 
 	 * @return Array with auxiliary values for the classes (positive integers plus zero)
 	 */
-	public int[] translate();
+	public int[] translate(String[] classes);
+	/**
+	 * 
+	 * @return Array with true values for the classes
+	 */
 	public String[] reverse(int[] predictions);
 }

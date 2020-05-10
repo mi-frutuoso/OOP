@@ -3,16 +3,18 @@ package metricsPackage;
 public class Accuracy<T> implements Metrics<T> {
 	
 	private T[] trueC;
+	private T[] res;
 	//private T[] predC;
 	private float acc;
 	
 	
-	public Accuracy(T[] trueC){
+	public Accuracy(T[] trueC, T[] res){
 		this.trueC = trueC;
+		this.res = res;
 	}
 
 	@Override
-	public void evaluate(T[] res) {
+	public void evaluate() {
 		// TODO Auto-generated method stub
 		if(trueC.length != res.length) {
 			System.out.println("Accuracy error: Predicted and test classes' array not consistent. Exiting...");

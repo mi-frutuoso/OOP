@@ -7,35 +7,41 @@ import java.util.ArrayList;
  *
  */
 public class IDTranslator implements Translator {
-	private ArrayList<String> original;								// may contain duplicates
-	private ArrayList<String> seed;									// 'original' without duplicates
-	private int Nclasses;											// Number of classes identified
+	private String[] original;								// may contain duplicates
+	private ArrayList<String> seed;							// 'original' without duplicates
+	private int Nclasses;									// Number of classes identified
 	/**
 	 * 
 	 * @param classes List of the (original) identified classes stored as strings.
 	 */
-	public IDTranslator(ArrayList<String> classes) {
-		original = classes;
+//	public IDTranslator(String[] classes) {
+//		original = classes;
+//	}
+	
+	public IDTranslator() {
 	}
 	
 	/**
 	 * Translates list <b>classes</b> (given in constructor) into array of integers.
 	 * Generates <b>seed</b> for further inverse translation.
 	 */
-	public int[] translate() {
-		if(original.size() < 1) return null;
-		int[] translation = new int[original.size()];
-		int i = 0;
-		seed = new ArrayList<String>(original.size());
+	public int[] translate(String[] classes) {
+		original = classes;
+		if(original.length < 1) return null;
+		int[] translation = new int[original.length];
+		int i = 0;										
+		int seedID = 0;
+		seed = new ArrayList<String>(original.length);
 		for(String c : original) {
 			if(seed.contains(c)) translation[i]=seed.indexOf(c);
 			else {
 				seed.add(c);
-				translation[i]=i;
-				i++;
+				translation[i]=seedID;
+				seedID++;
 			}
+			i++;
 		}
-		Nclasses = i+1;
+		Nclasses = seedID+1;
 		return translation;
 	}
 	

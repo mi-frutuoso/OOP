@@ -144,4 +144,9 @@ public class TreeClass implements Tree{
 		}
 	}
 
+	@Override
+	public int[] returnClassification() {
+		return results;
+	}
+
 }

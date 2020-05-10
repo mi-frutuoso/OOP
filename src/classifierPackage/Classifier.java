@@ -1,9 +1,9 @@
 package classifierPackage;
 
-public interface Classifier<T> {
+public interface Classifier {
 	public void train();
 	
 	public void predict();
 	
-	public T results();
+	public String[] results();
 }

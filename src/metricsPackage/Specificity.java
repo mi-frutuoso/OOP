@@ -10,16 +10,18 @@ public class Specificity<T> implements Metrics<T> {
 	private ArrayList<Float> specf_c = new ArrayList<Float>();
 	private T[] Ctest;
 	float specf_avg;
+	private T[] res;
 	
-	public Specificity(T[] Ctest){
+	public Specificity(T[] Ctest, T[] res){
 		this.Ctest = Ctest;
+		this.res = res;
 	}
 
 	@Override
-	public void evaluate(T[] res) {
+	public void evaluate() {
 		// identify each different class
 		for (T c : Ctest)
-			if(!classes.contains(c)) classes.add(c);
+			if(!classes.contains(c)) insert(c);
 		
 		// compute Negatives (_N) and TrueNegatives (_TN) for each identified class
 		int i; 							// iterator
@@ -50,10 +52,32 @@ public class Specificity<T> implements Metrics<T> {
 		// conclude weighted average specificity computation
 		specf_avg = (float) specf_avg/Ctest.length;
 	}
+	
+	private void insert(T elem){					// insertion with lexicographical order
+	    // iterate over classes[]
+	    for (int i = 0; i < classes.size(); i++) {
+	        if (classes.get(i).toString().compareTo(elem.toString()) <= -1) {
+	        	continue; 							//keep searching
+	        }
+	        classes.add(i, elem);					// location to insert has been found
+	        return;
+	    }
+	    classes.add(elem);							// insert in the end
+	}
 
 	@Override
-	public String toString() {
-		return "[" + specf_c + ", " + specf_avg +"]";
+	public String toString()
+	{
+	    StringBuilder str = new StringBuilder();	// var where string is appended to
+	    str.append("[");
+
+	    // append scores for all classes
+	    for(int i = 0; i < classes.size(); i++)
+		    str.append(""+ classes.get(i) + ": "+ String.format("%.2f", specf_c.get(i))+", "); 
+	    
+	    // append last element (avg)
+	    str.append(""+ String.format("%.2f", specf_avg)+"]");
+	    return str.toString();
 	}
 	
 //	@Override 						// DEBUG purposes: uncomment "TN.add(_TN);"
