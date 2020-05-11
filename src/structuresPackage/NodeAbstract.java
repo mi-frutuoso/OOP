@@ -87,8 +87,8 @@ public abstract class NodeAbstract implements Node{
 			}
 		}
 		
-		System.out.println("Theta for node " + node_id + ":");
-		System.out.println(Arrays.deepToString(theta));
+		//System.out.println("Theta for node " + node_id + ":");
+		//System.out.println(Arrays.deepToString(theta));
 	}
 	
 	public double[] returnAlpha() {

@@ -52,7 +52,7 @@ public class NodeLL extends NodeAbstract{
 			alpha[i] = total;
 		}
 		
-		System.out.println(Arrays.toString(alpha));
+		//System.out.println(Arrays.toString(alpha));
 	}
 
 }

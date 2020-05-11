@@ -30,9 +30,9 @@ public class TreeClass implements Tree{
 		}
 		
 		this.buildAdjacencyMatrix();
-		System.out.println();
+		/*System.out.println();
 		System.out.println(Arrays.deepToString(adjacency_matrix));
-		System.out.println();
+		System.out.println();*/
 		
 		nodes = new NodeLL[max_values.length-1];
 		for(int i = 0; i < max_values.length-1; i++) {
@@ -86,7 +86,7 @@ public class TreeClass implements Tree{
 			results[i] = classification;
 		}
 		
-		System.out.println(Arrays.toString(results));
+		//System.out.println(Arrays.toString(results));
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class TreeClass implements Tree{
 		notInTree.removeFirstOccurrence(0);
 		
 		for(int j = 0; j < max_values.length-2; j++) {
-			System.out.println("Iteration" + j);
+			//System.out.println("Iteration" + j);
 			max_value = Double.NaN;
 			Iterator<Integer> iterator = inTree.iterator();
 			while (iterator.hasNext()) {
@@ -136,7 +136,7 @@ public class TreeClass implements Tree{
 			    }
 			}
 			
-			System.out.println("Max value: " + max_value + "\tMax node: " + max_node + "\tParent: " + parent);
+			//System.out.println("Max value: " + max_value + "\tMax node: " + max_node + "\tParent: " + parent);
 			
 			inTree.add(max_node);
 			adjacency_matrix[max_node][parent] = 1;
@@ -147,6 +147,27 @@ public class TreeClass implements Tree{
 	@Override
 	public int[] returnClassification() {
 		return results;
+	}
+	
+	public void printStructure() {
+		
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		int p;
+		
+		System.out.println("X1 : C");
+		
+		list.add(0);
+		
+		for(int i = 0; i < max_values.length-2; i++) {
+			if(list == null) return;
+			else p = list.remove();
+			for(int j = 0; j < max_values.length-1; j++) {
+				if(adjacency_matrix[j][p] == 1) {
+					System.out.println("\t\t\tX" + (j+1) + " : X" + (p+1) + " C");
+					list.add(j);
+				}
+			}
+		}
 	}
 
 }

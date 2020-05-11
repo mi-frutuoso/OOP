@@ -54,12 +54,12 @@ public class Bayes implements Classifier{
 	@Override
 	public String[] results() {
 		String[] classification = tr.reverse(tree.returnClassification());
-		System.out.print("Classifier:               ");
-		System.out.println("X0...XN");
-		System.out.println("Time to build:            "+train_time+" ns");
-		System.out.println("Time to test:             "+test_time+" ns");
+		System.out.print("Classifier:\t\t");
+		tree.printStructure();
+		System.out.println("Time to build:\t\t"+train_time+" ns");
 		System.out.println("Testing the classifier:     ");
-		for(int i=0; i<classification.length; i++) System.out.println(String.format("-> instance  %9d", i)+":   "+classification[i]);
+		for(int i=0; i<classification.length; i++) System.out.println("-> instance " + i + ":\t\t" + classification[i]);
+		System.out.println("Time to test:\t\t"+test_time+" ns");
 		return classification;
 	}
 
