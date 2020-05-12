@@ -30,7 +30,7 @@ public class Accuracy<T> implements Metrics<T> {
 
 	@Override
 	public String toString() {
-		return "" + acc;
+		return String.format("%.2f", acc);
 	}
 	
 	

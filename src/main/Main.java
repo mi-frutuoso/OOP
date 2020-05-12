@@ -10,7 +10,7 @@ public class Main {
 		bayes.train();
 		bayes.predict();
 		System.out.print(bayes);
-		Resume<String> resume = new Resume<String>("bias-test_v3.csv", bayes.results());
+		Resume<String> resume = new Resume<String>("bias-test.csv", bayes.results());
 		resume.results();
 		System.out.print(resume);
 	}

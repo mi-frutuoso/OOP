@@ -1,14 +1,12 @@
 package metricsPackage;
-import java.util.Arrays;
 
 import filePackage.FileClass;
 import filePackage.FileInterface;
 
 public class Resume<T> {
 	private Metrics<?>[] resume = new Metrics[4];
-	//FileInterface fp;
-	String filename;
-	String[] results;
+	private String filename;
+	private String[] results;
 	
 	public Resume(String filename, String[] results){
 		this.filename = filename;
@@ -27,7 +25,7 @@ public class Resume<T> {
 	@Override
 	public String toString() {
 		// print resume
-		StringBuilder str = new StringBuilder();	// var where string is appended to
+		StringBuffer str = new StringBuffer();	// var where string is appended to
 	    str.append("Resume:\t\t\t");
 		for(int i=0; i<resume.length; i++) {
 			Metrics<?> r = resume[i];

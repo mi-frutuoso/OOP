@@ -153,9 +153,9 @@ public class TreeClass implements Tree{
 	public String toString() {
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		int p;
-		String ret = new String();
+		StringBuffer ret = new StringBuffer();
 		
-		ret = ret + "X1 : C\n";
+		ret.append("X1 : C\n");
 		
 		list.add(0);
 		
@@ -164,13 +164,13 @@ public class TreeClass implements Tree{
 			else p = list.remove();
 			for(int j = 0; j < max_values.length-1; j++) {
 				if(adjacency_matrix[j][p] == 1) {
-					ret = ret + "\t\t\tX" + (j+1) + " : X" + (p+1) + " C\n";
+					ret.append("\t\t\tX" + (j+1) + " : X" + (p+1) + " C\n");
 					list.add(j);
 				}
 			}
 		}
 		
-		return ret;
+		return ret.toString();
 	}
 
 }
