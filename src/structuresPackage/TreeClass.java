@@ -155,7 +155,7 @@ public class TreeClass implements Tree{
 		int p;
 		String ret = new String();
 		
-		System.out.println("X1 : C");
+		ret = ret + "X1 : C\n";
 		
 		list.add(0);
 		
