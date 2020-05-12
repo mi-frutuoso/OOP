@@ -53,15 +53,20 @@ public class Bayes implements Classifier{
 
 	@Override
 	public String[] results() {
-		String[] classification = tr.reverse(tree.returnClassification());
-		System.out.print("Classifier:\t\t");
-		//tree.printStructure();
-		System.out.print(tree);
-		System.out.println("Time to build:\t\t"+train_time+" ns");
-		System.out.println("Testing the classifier:     ");
-		for(int i=0; i<classification.length; i++) System.out.println("-> instance " + i + ":\t\t" + classification[i]);
-		System.out.println("Time to test:\t\t"+test_time+" ns");
-		return classification;
+		return tr.reverse(tree.returnClassification());
+	}
+	
+	@Override
+	public String toString() {
+		String[] classification = results();
+		StringBuilder str = new StringBuilder();	// var where string is appended to
+	    str.append("Classifier:\t\t");
+	    str.append(tree);
+	    str.append("Time to build:\t\t"+train_time+" ns\n");
+	    str.append("Testing the classifier:\t\n");
+		for(int i=0; i<classification.length; i++) str.append("-> instance " + i + ":\t\t" + classification[i]+"\n");
+		str.append("Time to test:\t\t"+test_time+" ns\n");
+		return str.toString();
 	}
 
 }

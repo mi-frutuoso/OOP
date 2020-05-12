@@ -1,4 +1,6 @@
 package metricsPackage;
+import java.util.Arrays;
+
 import filePackage.FileClass;
 import filePackage.FileInterface;
 
@@ -20,14 +22,19 @@ public class Resume<T> {
 		resume[1] = new Specificity<String>(true_classes, results);
 		resume[2] = new Sensitivity<String>(true_classes, results);
 		resume[3] = new F1Score<String>(true_classes, results);
-		
+	}
+
+	@Override
+	public String toString() {
 		// print resume
-		System.out.print("Resume:                   ");
+		StringBuilder str = new StringBuilder();	// var where string is appended to
+	    str.append("Resume:\t\t\t");
 		for(int i=0; i<resume.length; i++) {
 			Metrics<?> r = resume[i];
 			r.evaluate();
-			if(i == resume.length-1) System.out.print(r);
-			else System.out.print(r+", ");
+			str.append(r);
+			if(i != resume.length-1) str.append(", ");
 		}
+		return str.toString();
 	}
 }
