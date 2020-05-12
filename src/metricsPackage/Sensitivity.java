@@ -7,18 +7,29 @@ public class Sensitivity<T> extends MetricAbstract<T> {
 	//private ArrayList<Integer> TP = new ArrayList<Integer>();			// DEBUG purposes
 	//private ArrayList<Integer> P = new ArrayList<Integer>();			// DEBUG purposes
 	
+	/**
+	 * Constructor that invokes superclass.
+	 * @param Ctest Array containing the true classification values.
+	 * @param res Array containing the predicted classification values (that is, the obtained result).
+	 */
 	public Sensitivity(T[] Ctest, T[] res){
 		super(Ctest, res);
 	}
 	
 	@Override
 	public void evaluate() {
-		// identify each different class
-		for (T c : Ctest)
-			if(!classes.contains(c)) insert(c);
+		// array verification
+		if(Ctest.length != res.length) {
+			System.out.println("Sensitivity error: Predicted and test classes' array not consistent. Exiting...");
+			System.exit(1);
+		}
 		
-		// TODO: sort classes
-		// ...
+		// identify each different class and store it
+		for (T c : Ctest)
+			if(!classes.contains(c)) classes.add(c);
+		
+		// sort classes numerically or alphabetically
+		sortClasses();
 		
 		// compute Positives (_P) and TruePositives (_TP) for each identified class
 		int i; // iterator

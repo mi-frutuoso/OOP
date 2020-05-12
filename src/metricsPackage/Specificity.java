@@ -7,15 +7,29 @@ public class Specificity<T> extends MetricAbstract<T> {
 	//private ArrayList<Integer> TN = new ArrayList<Integer>();			// DEBUG purposes
 	//private ArrayList<Integer> N = new ArrayList<Integer>();			// DEBUG purposes
 	
+	/**
+	 * Constructor that invokes superclass.
+	 * @param Ctest Array containing the true classification values.
+	 * @param res Array containing the predicted classification values (that is, the obtained result).
+	 */
 	public Specificity(T[] Ctest, T[] res){
 		super(Ctest, res);
 	}
 
 	@Override
 	public void evaluate() {
-		// identify each different class
+		// array verification
+		if(Ctest.length != res.length) {
+			System.out.println("Sensitivity error: Predicted and test classes' array not consistent. Exiting...");
+			System.exit(1);
+		}
+		
+		// identify each different class and store it
 		for (T c : Ctest)
-			if(!classes.contains(c)) insert(c);
+			if(!classes.contains(c)) classes.add(c);
+		
+		// sort classes numerically or alphabetically
+		sortClasses();
 		
 		// compute Negatives (_N) and TrueNegatives (_TN) for each identified class
 		int i; 							// iterator

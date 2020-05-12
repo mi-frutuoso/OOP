@@ -2,6 +2,11 @@ package metricsPackage;
 
 public class F1Score<T> extends MetricAbstract<T> {
 	
+	/**
+	 * Constructor that invokes superclass.
+	 * @param Ctest Array containing the true classification values.
+	 * @param res Array containing the predicted classification values (that is, the obtained result).
+	 */
 	public F1Score(T[] Ctest,T[] res){
 		super(Ctest, res);
 	}
@@ -14,9 +19,12 @@ public class F1Score<T> extends MetricAbstract<T> {
 			System.exit(1);
 		}
 		
-		// identify each different class
+		// identify each different class and store it
 		for (T c : Ctest)
-			if(!classes.contains(c)) insert(c);
+			if(!classes.contains(c)) classes.add(c);
+		
+		// sort classes numerically or alphabetically
+		sortClasses();
 		
 		// compute TruePositives (_TP), FalsePositives (_FP) and FalseNegatives (_FN) for each identified class
 		int i; 										// iterator

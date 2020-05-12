@@ -1,51 +1,50 @@
 package metricsPackage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
+/**
+ * Abstract metric, that offers some useful functions, such as sortClasses() and toString() for formatting the 
+ * results presentation, and attributes, that can be commonly shared by different implementations of metrics.
+ * @param <T> Generic classification type.
+ */
 public abstract class MetricAbstract<T> implements Metrics<T>{
 	/**
-	 * List that stores generic classification values.
+	 * List that stores generic classification values (classes).
 	 */
 	ArrayList<T> classes = new ArrayList<T>();
 	T[] Ctest;
 	T[] res;
+	/**
+	 * List that stores the metric value (score) computed by the metric's evaluate() algorithm.
+	 */
 	ArrayList<Float> metricValues = new ArrayList<Float>();
 	float avg;
 	
+	/**
+	 * 
+	 * @param Ctest Array containing the true classification values.
+	 * @param res Array containing the predicted classification values (that is, the obtained result).
+	 */
 	public MetricAbstract(T[] Ctest,T[] res){
 		this.Ctest = Ctest;
 		this.res = res;
 	}
 	/**
-	 * Method that computes a given metric result, which implementation depends on the metric.
+	 * Method that computes a given metric result, which implementation depends on the metric algorithm.
 	 */
 	public abstract void evaluate();
 	
 	/**
-	 * This method allows to add an identified class from the test set to a list that stores all the classes.
-	 * Instead of appending, it inserts each element maintaining the lexicographical order of the set of classes.
-	 * This allows the ArrayList 'f1_c' to follow the same order and to present the results in a sorted way.
+	 * Sorting the identified classes from the test set allows the metric's ArrayList <b>metricValues</b> to
+	 * store its values numerically and/or alphabetically. Results can be then presented in a sorted way.
 	 * 
-	 * @param elem Generic class of the test set
 	 */
-	void insert(T elem){													// lexicographical order insertion
-	    // iterate over classes[]
-		int i = 0;
-		Iterator<T> it = classes.iterator();
-		while (it.hasNext()) {
-			T temp = it.next();
-			if (temp.toString().compareTo(elem.toString()) <= -1) {
-				i++;
-				continue; 														// keep searching
-			}
-	        classes.add(i, elem);												// insertion location found!
-	        i++;
-	        return;
-		}
-	    classes.add(elem);														// insert in the end
+	void sortClasses() {
+		Collections.sort(classes, new TComparator<T>());
 	}
-	
+
 	@Override
 	public String toString()
 	{
