@@ -1,6 +1,5 @@
 package structuresPackage;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
