@@ -55,7 +55,8 @@ public class Bayes implements Classifier{
 	public String[] results() {
 		String[] classification = tr.reverse(tree.returnClassification());
 		System.out.print("Classifier:\t\t");
-		tree.printStructure();
+		//tree.printStructure();
+		System.out.print(tree);
 		System.out.println("Time to build:\t\t"+train_time+" ns");
 		System.out.println("Testing the classifier:     ");
 		for(int i=0; i<classification.length; i++) System.out.println("-> instance " + i + ":\t\t" + classification[i]);

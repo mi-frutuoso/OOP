@@ -149,25 +149,28 @@ public class TreeClass implements Tree{
 		return results;
 	}
 	
-	public void printStructure() {
-		
+	@Override
+	public String toString() {
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		int p;
+		String ret = new String();
 		
 		System.out.println("X1 : C");
 		
 		list.add(0);
 		
 		for(int i = 0; i < max_values.length-2; i++) {
-			if(list == null) return;
+			if(list == null) return null;
 			else p = list.remove();
 			for(int j = 0; j < max_values.length-1; j++) {
 				if(adjacency_matrix[j][p] == 1) {
-					System.out.println("\t\t\tX" + (j+1) + " : X" + (p+1) + " C");
+					ret = ret + "\t\t\tX" + (j+1) + " : X" + (p+1) + " C\n";
 					list.add(j);
 				}
 			}
 		}
+		
+		return ret;
 	}
 
 }
