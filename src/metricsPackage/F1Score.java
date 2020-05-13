@@ -1,20 +1,15 @@
 package metricsPackage;
 
-import java.util.ArrayList;
-
-public class F1Score<T> implements Metrics<T> {
-
-	private ArrayList<T> classes = new ArrayList<T>();
-	private ArrayList<Float> f1_c = new ArrayList<Float>();
-	private T[] Ctest;
-	private T[] res;
-	float f1_avg;
+public class F1Score<T> extends MetricAbstract<T> {
 	
+	/**
+	 * Constructor that invokes superclass.
+	 * @param Ctest Array containing the true classification values.
+	 * @param res Array containing the predicted classification values (that is, the obtained result).
+	 */
 	public F1Score(T[] Ctest,T[] res){
-		this.Ctest = Ctest;
-		this.res = res;
+		super(Ctest, res);
 	}
-	
 	
 	@Override
 	public void evaluate() {
@@ -24,9 +19,12 @@ public class F1Score<T> implements Metrics<T> {
 			System.exit(1);
 		}
 		
-		// identify each different class
+		// identify each different class and store it
 		for (T c : Ctest)
-			if(!classes.contains(c)) insert(c);
+			if(!classes.contains(c)) classes.add(c);
+		
+		// sort classes numerically or alphabetically
+		sortClasses();
 		
 		// compute TruePositives (_TP), FalsePositives (_FP) and FalseNegatives (_FN) for each identified class
 		int i; 										// iterator
@@ -54,53 +52,19 @@ public class F1Score<T> implements Metrics<T> {
 				i++;
 			}
 			_f1 = (float) 2*_TP/(2*_TP+_FP+_FN);
-			f1_c.add(_f1);
+			metricValues.add(_f1);
 
 			// compute, partially, weighted average F1score
-			f1_avg += (float) fC*_f1; 
+			avg += (float) fC*_f1; 
 		}
 		// conclude weighted average F1score computation
-		f1_avg = (float) f1_avg/Ctest.length;
-	}
-	/**
-	 * This method allows to add an identified class from the test set to a list that stores all the classes.
-	 * Instead of appending, it inserts each element maintaining the lexicographical order of the set of classes.
-	 * This allows the ArrayList 'f1_c' to follow the same order and to present the results in a sorted way.
-	 * 
-	 * @param elem Generic class of the test set
-	 */
-	private void insert(T elem){					// insertion with lexicographical order
-	    // iterate over classes[]
-	    for (int i = 0; i < classes.size(); i++) {
-	        if (classes.get(i).toString().compareTo(elem.toString()) <= -1) {
-	        	continue; 							//keep searching
-	        }
-	        classes.add(i, elem);					// location to insert has been found
-	        return;
-	    }
-	    classes.add(elem);							// insert in the end
-	}
-
-	
-	@Override
-	public String toString()
-	{
-	    StringBuilder str = new StringBuilder();	// var where string is appended to
-	    str.append("[");
-
-	    // append scores for all classes
-	    for(int i = 0; i < classes.size(); i++)
-		    str.append(""+ classes.get(i) + ": "+ String.format("%.2f", f1_c.get(i))+", "); 
-	    
-	    // append last element (avg)
-	    str.append(""+ String.format("%.2f", f1_avg)+"]");
-	    return str.toString();
+		avg = (float) avg/Ctest.length;
 	}
 	
 //	@Override									// DEBUG purposes
 //	public String toString() {
-//		return "F1Score [classes=" + classes + ", f1_c=" + f1_c + ", Ctest=" + Arrays.toString(Ctest) + ", f1_avg="
-//				+ f1_avg + "]";
+//		return "F1Score [classes=" + classes + ", f1_c=" + metricValues + ", Ctest=" + Arrays.toString(Ctest) + ", f1_avg="
+//				+ avg + "]";
 //	}
 
 }

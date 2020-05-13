@@ -1,30 +1,35 @@
 package metricsPackage;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
-public class Sensitivity<T> implements Metrics<T> {
+public class Sensitivity<T> extends MetricAbstract<T> {
 
-	private ArrayList<T> classes = new ArrayList<T>();
 	//private ArrayList<Integer> TP = new ArrayList<Integer>();			// DEBUG purposes
-	private ArrayList<Integer> P = new ArrayList<Integer>();
-	private ArrayList<Float> senst_c = new ArrayList<Float>();
-	float senst_avg;
-	private T[] Ctest;
-	private T[] res;
+	//private ArrayList<Integer> P = new ArrayList<Integer>();			// DEBUG purposes
 	
+	/**
+	 * Constructor that invokes superclass.
+	 * @param Ctest Array containing the true classification values.
+	 * @param res Array containing the predicted classification values (that is, the obtained result).
+	 */
 	public Sensitivity(T[] Ctest, T[] res){
-		this.Ctest = Ctest;
-		this.res = res;
+		super(Ctest, res);
 	}
 	
 	@Override
 	public void evaluate() {
-		// identify each different class
-		for (T c : Ctest)
-			if(!classes.contains(c)) insert(c);
+		// array verification
+		if(Ctest.length != res.length) {
+			System.out.println("Sensitivity error: Predicted and test classes' array not consistent. Exiting...");
+			System.exit(1);
+		}
 		
-		// TODO: sort classes
-		// ...
+		// identify each different class and store it
+		for (T c : Ctest)
+			if(!classes.contains(c)) classes.add(c);
+		
+		// sort classes numerically or alphabetically
+		sortClasses();
 		
 		// compute Positives (_P) and TruePositives (_TP) for each identified class
 		int i; // iterator
@@ -42,50 +47,23 @@ public class Sensitivity<T> implements Metrics<T> {
 				}
 				i++;
 			}
-			P.add(_P);
+			//P.add(_P);
 			//TP.add(_TP); //debug
 			_senst = (float)_TP/(_P);
-			senst_c.add(_senst);
+			metricValues.add(_senst);
 
 			// compute, partially, weighted average sensitivity
-			senst_avg += (float) _P*_senst; 
+			avg += (float) _P*_senst; 
 		}
 		// conclude weighted average sensitivity computation
-		senst_avg = (float) senst_avg/Ctest.length;
+		avg = (float) avg/Ctest.length;
 	}	
-	
-	private void insert(T elem){					// insertion with lexicographical order
-	    // iterate over classes[]
-	    for (int i = 0; i < classes.size(); i++) {
-	        if (classes.get(i).toString().compareTo(elem.toString()) <= -1) {
-	        	continue; 							//keep searching
-	        }
-	        classes.add(i, elem);					// location to insert has been found
-	        return;
-	    }
-	    classes.add(elem);							// insert in the end
-	}
-	
-	@Override
-	public String toString()
-	{
-	    StringBuilder str = new StringBuilder();	// var where string is appended to
-	    str.append("[");
-
-	    // append scores for all classes
-	    for(int i = 0; i < classes.size(); i++)
-		    str.append(""+ classes.get(i) + ": "+ String.format("%.2f", senst_c.get(i))+", "); 
-	    
-	    // append last element (avg)
-	    str.append(""+ String.format("%.2f", senst_avg)+"]");
-	    return str.toString();
-	}
 
 	
 //	@Override 						// DEBUG purposes: uncomment "TP.add(_TP);"
 //	public String toString() {
-//		return "Sensitivity [classes=" + classes + ", TP=" + TP + ", P=" + P + ", senst_c=" + senst_c + ", senst_avg="
-//				+ senst_avg + ", Ctest=" + Arrays.toString(Ctest) + "]";
+//		return "Sensitivity [classes=" + classes + ", TP=" + TP + ", P=" + P + ", senst_c=" + metricValues + ", senst_avg="
+//				+ avg + ", Ctest=" + Arrays.toString(Ctest) + "]";
 //	}
 
 }

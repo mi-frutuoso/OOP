@@ -59,7 +59,7 @@ public class Bayes implements Classifier{
 	@Override
 	public String toString() {
 		String[] classification = results();
-		StringBuilder str = new StringBuilder();	// var where string is appended to
+		StringBuffer str = new StringBuffer();	// var where string is appended to
 	    str.append("Classifier:\t\t");
 	    str.append(tree);
 	    str.append("Time to build:\t\t"+train_time+" ns\n");

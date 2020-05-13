@@ -1,7 +1,5 @@
 package structuresPackage;
 
-import java.util.Arrays;
-
 public abstract class NodeAbstract implements Node{
 	double[] alpha;
 	double[][][] theta;
