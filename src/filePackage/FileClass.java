@@ -17,6 +17,7 @@ public class FileClass implements FileInterface{
 	private String filename;
 	private String[] classes;
 	private Translator tr;
+	private StringBuffer Xlabels;
 
 	/**
 	 * Constructs a training/test file reader.
@@ -29,11 +30,12 @@ public class FileClass implements FileInterface{
 	 * @param max_values Two-dimensional matrix in the format [1][N], contains maximum of each set of features.
 	 * @param classes Array containing the classes column, converted to strings. 
 	 */
-	public FileClass(int[][][] arg_matrix, String filename, int[][] max_values, Translator tr) {
+	public FileClass(int[][][] arg_matrix, String filename, int[][] max_values, Translator tr, StringBuffer Xlabels) {
 		this.matrix = arg_matrix;
 		this.filename = filename;
 		this.max_values = max_values;
 		this.tr = tr;
+		this.Xlabels = Xlabels;
 	}
 	
 	/**
@@ -70,11 +72,12 @@ public class FileClass implements FileInterface{
 		    	matrix[0] = new int[lines][num_vars];
 		    	max_values[0] = new int[num_vars];
 		    	classes = new String[lines];
-		    	  
+		    	 
 		    	myReader = new Scanner(myObj);
 		    	int j = 0;
 		    	if(myReader.hasNextLine()) {
-		    		myReader.nextLine();
+		    		String vars = myReader.nextLine();
+		    		if(Xlabels != null) Xlabels.append(vars);			// copy feature labels to stringbuffer
 		    	}
 		        while (myReader.hasNextLine()) {
 		          String data = myReader.nextLine();

@@ -2,7 +2,6 @@ package structuresPackage;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 public class TreeClass implements Tree{
 	
@@ -13,11 +12,13 @@ public class TreeClass implements Tree{
 	double[][] alpha_list;
 	int[][] adjacency_matrix;
 	int[] results;
+	String feature_labels;
 	
-	public TreeClass(int[][] matrix, int[] max_values, Node[] nodes) {
+	public TreeClass(int[][] matrix, int[] max_values, Node[] nodes, String feature_labels) {
 		this.matrix = matrix;
 		this.max_values = max_values;
 		this.nodes = nodes;
+		this.feature_labels = feature_labels;
 	}
 
 	@Override
@@ -30,9 +31,9 @@ public class TreeClass implements Tree{
 		}
 		
 		this.buildAdjacencyMatrix();
-		/*System.out.println();
-		System.out.println(Arrays.deepToString(adjacency_matrix));
-		System.out.println();*/
+//		System.out.println();
+//		System.out.println(Arrays.deepToString(adjacency_matrix));
+//		System.out.println();
 		
 		nodes = new NodeLL[max_values.length-1];
 		for(int i = 0; i < max_values.length-1; i++) {
@@ -153,8 +154,11 @@ public class TreeClass implements Tree{
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		int p;
 		StringBuffer ret = new StringBuffer();
+		String[] features = new String[max_values.length];	// convert features from int to real names
+		for(int i=0; i<features.length; i++) features[i] = feature_labels.split(",")[i];
 		
-		ret.append("X1 : C\n");
+		//ret.append("X1 : C\n");
+		ret.append(String.format("%s : %s\n", features[0], features[features.length-1]));
 		
 		list.add(0);
 		
@@ -163,7 +167,8 @@ public class TreeClass implements Tree{
 			else p = list.remove();
 			for(int j = 0; j < max_values.length-1; j++) {
 				if(adjacency_matrix[j][p] == 1) {
-					ret.append("\t\t\tX" + (j+1) + " : X" + (p+1) + " C\n");
+//					ret.append("\t\t\tX" + (j+1) + " : X" + (p+1) + " C\n");
+					ret.append("\t\t\t" + features[j] + " : " + features[features.length-1] + " " + features[p]+"\n");
 					list.add(j);
 				}
 			}

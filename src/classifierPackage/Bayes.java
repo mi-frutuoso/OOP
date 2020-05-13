@@ -22,6 +22,7 @@ public class Bayes implements Classifier{
 	private Translator tr;
 	private long train_time;
 	private long test_time;
+	private StringBuffer features = new StringBuffer();
 	
 	public Bayes(String train_file, String test_file, String score) {
 		this.train_file = train_file;
@@ -33,11 +34,11 @@ public class Bayes implements Classifier{
 	public void train() {
 		long start_time = System.nanoTime();
 		tr = new IDTranslator();
-		file = new FileClass(matrix, train_file, max_values, tr);
+		file = new FileClass(matrix, train_file, max_values, tr, features);
 		file.readFile();
 		graph = new GraphClass(matrix[0], max_values[0], score);
 		graph.makeStruct();
-		tree = new TreeClass(matrix[0], max_values[0], graph.returnNodes());
+		tree = new TreeClass(matrix[0], max_values[0], graph.returnNodes(), features.toString());
 		tree.makeStruct();
 		train_time = System.nanoTime() - start_time;
 	}
@@ -45,7 +46,7 @@ public class Bayes implements Classifier{
 	@Override
 	public void predict() {
 		long start_time = System.nanoTime();
-		file = new FileClass(matrix, test_file, max_values, null);
+		file = new FileClass(matrix, test_file, max_values, null, null);
 		file.readFile();
 		tree.predict(matrix[0]);
 		test_time = System.nanoTime() - start_time;
