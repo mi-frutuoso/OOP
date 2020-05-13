@@ -3,6 +3,7 @@ package structuresPackage;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class TreeClass implements Tree{
 	
@@ -123,13 +124,11 @@ public class TreeClass implements Tree{
 			    			max_value = alpha_list[temp.intValue()][temp2.intValue()];
 			    			max_node = temp2.intValue();
 			    			parent = temp.intValue();
-			    			alpha_list[temp.intValue()][temp2.intValue()] = Double.NaN;
 			    		}else {
 			    			if(alpha_list[temp.intValue()][temp2.intValue()] > max_value) {
 			    				max_value = alpha_list[temp.intValue()][temp2.intValue()];
 				    			max_node = temp2.intValue();
 				    			parent = temp.intValue();
-				    			alpha_list[temp.intValue()][temp2.intValue()] = Double.NaN;
 			    			}
 			    		}
 			    	}
@@ -138,6 +137,7 @@ public class TreeClass implements Tree{
 			
 			//System.out.println("Max value: " + max_value + "\tMax node: " + max_node + "\tParent: " + parent);
 			
+			alpha_list[parent][max_node] = Double.NaN;
 			inTree.add(max_node);
 			adjacency_matrix[max_node][parent] = 1;
 			notInTree.removeFirstOccurrence(max_node);
