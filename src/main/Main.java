@@ -14,16 +14,6 @@ public class Main {
 	 * @param args Arguments passed by the user in the command line.
 	 */
 	public static void main(String[] args) {
-<<<<<<< HEAD
-//		Classifier<Integer> bayes = new Bayes<Integer>("bias-train.csv", "bias-test.csv", "MDL");
-		Classifier bayes = new Bayes("heart-train.csv", "heart-test.csv", "LL");
-		bayes.train();
-		bayes.predict();
-		System.out.print(bayes);
-		Resume<String> resume = new Resume<String>("heart-test.csv", bayes.results());
-		resume.results();
-		System.out.print(resume);
-=======
 		if(validUI(args)) {
 			String train = args[0];
 			String test = args[1];
@@ -74,7 +64,6 @@ public class Main {
 			}
 		}
 		return true;
->>>>>>> f80470914549ef6e36500d66d917b3b5e85f3005
 	}
 
 }
