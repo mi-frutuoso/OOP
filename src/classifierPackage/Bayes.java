@@ -65,7 +65,7 @@ public class Bayes implements Classifier{
 	    str.append(tree);
 	    str.append("Time to build:\t\t"+train_time+" ns\n");
 	    str.append("Testing the classifier:\t\n");
-		for(int i=0; i<classification.length; i++) str.append("-> instance " + i + ":\t\t" + classification[i]+"\n");
+		for(int i=0; i<classification.length; i++) str.append("-> instance " + (i+1) + ":\t\t" + classification[i]+"\n");
 		str.append("Time to test:\t\t"+test_time+" ns\n");
 		return str.toString();
 	}
