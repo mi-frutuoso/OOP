@@ -18,7 +18,6 @@ public class Main {
 			String train = args[0];
 			String test = args[1];
 			String score = args[2];
-//			Classifier<Integer> bayes = new Bayes<Integer>("bias-train.csv", "bias-test.csv", "MDL");
 			Classifier bayes = new Bayes(train, test, score);
 			bayes.train();
 			bayes.predict();

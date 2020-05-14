@@ -31,6 +31,7 @@ public class GraphClass implements Graph{
 	@Override
 	public void makeStruct() {
 		
+		//Checks which type of node was specified by the user
 		if(score.equals("LL")) {
 			nodes = new NodeLL[matrix[0].length-1];
 			

@@ -59,6 +59,7 @@ public class FileClass implements FileInterface{
 		    Scanner myReader = new Scanner(myObj);
 		      
 		    if (myReader.hasNextLine()) {
+		    	//Scans the file to check how many lines it has and how many variables
 		    	String[] data_array = (myReader.nextLine()).split(",");
 		    	int num_vars = data_array.length;
 		    	int lines = 0;
@@ -69,6 +70,8 @@ public class FileClass implements FileInterface{
 		    	}
 		    	
 		    	myReader.close();
+		    	
+		    	//Allocates the memory necessary to store the values
 		    	matrix[0] = new int[lines][num_vars];
 		    	max_values[0] = new int[num_vars];
 		    	classes = new String[lines];
@@ -79,6 +82,8 @@ public class FileClass implements FileInterface{
 		    		String vars = myReader.nextLine();
 		    		if(Xlabels != null) Xlabels.append(vars);			// copy feature labels to stringbuffer
 		    	}
+		    	//Parse line by line all the values in the file into the matrix that will hold the values
+		    	//and update the maximum value found for each feature and class
 		        while (myReader.hasNextLine()) {
 		          String data = myReader.nextLine();
 		          for(int i = 0; i < num_vars; i++) {

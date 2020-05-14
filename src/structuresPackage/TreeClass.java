@@ -40,18 +40,19 @@ public class TreeClass implements Tree{
 	 */
 	@Override
 	public void makeStruct() {
+		//Allocates memory to store all the alpha values from all the nodes and the adjacency matrix
 		alpha_list = new double[max_values.length-1][max_values.length-1];
 		adjacency_matrix = new int[max_values.length-1][max_values.length-1];
 		
+		//Gets the values of the alphas from all the nodes
 		for(int i = 0; i < max_values.length-1; i++) {
 			alpha_list[i] = nodes[i].returnAlpha();
 		}
 		
+		//Builds the adjacency matrix
 		this.buildAdjacencyMatrix();
-//		System.out.println();
-//		System.out.println(Arrays.deepToString(adjacency_matrix));
-//		System.out.println();
 		
+		//Creates new nodes with parents and computes the thetas for each one
 		nodes = new NodeLL[max_values.length-1];
 		for(int i = 0; i < max_values.length-1; i++) {
 			
@@ -64,6 +65,7 @@ public class TreeClass implements Tree{
 			nodes[i].computeTheta();
 		}
 		
+		//Create class node and compute the thetas
 		C = new NodeLL(matrix, max_values, -1, -1);
 		C.computeTheta();
 		
@@ -78,13 +80,17 @@ public class TreeClass implements Tree{
 	@Override
 	public void predict(int[][] test_matrix) {
 		
+		//Allocate memory to store all the results
 		results = new int[test_matrix.length];
 		
+		//For each entry in the test dataset
 		for(int i = 0; i < test_matrix.length; i++) {
 			int classification = -1;
 			double prob = 0;
+			//Test all the possible values for the class to check which one yields a higher probability
 			for(int j = 0; j < max_values[max_values.length-1]+1; j++) {
 				double temp_prob = 0;
+				//Gets the probability associated with each node and sums the logs of the probabilities
 				for(int n = 0; n < max_values.length-1; n++) {
 					int p = 0;
 					for(int k = 0; k < adjacency_matrix.length; k++) {
@@ -96,10 +102,13 @@ public class TreeClass implements Tree{
 				
 				temp_prob = temp_prob + Math.log(C.returnProbability(0, 0, j));
 				
+				//If no classification as been attributed yet
 				if(classification == -1) {
 					prob = temp_prob;
 					classification = j;
-				}else {
+				}
+				//If the probability of this class is higher then the previous maximum, update
+				else {
 					if(temp_prob > prob) {
 						prob = temp_prob;
 						classification = j;
@@ -107,10 +116,9 @@ public class TreeClass implements Tree{
 				}
 			}
 			
+			//Store the classification values
 			results[i] = classification;
 		}
-		
-		//System.out.println(Arrays.toString(results));
 	}
 
 	/**
@@ -129,32 +137,42 @@ public class TreeClass implements Tree{
 		double max_value;
 		int max_node = 0;
 		int parent = 0;
+		//Creates two lists, one for the nodes in the tree and other for the nodes not yet on the tree
 		LinkedList<Integer> notInTree = new LinkedList<Integer>();
 		LinkedList<Integer> inTree = new LinkedList<Integer>();
 		
+		//Makes the node 0 the root node
 		for(int i = 0; i < max_values.length-1; i++) {
 			adjacency_matrix[0][i] = 0;
 			notInTree.add(i);
 		}
 		
+		//Adds node 0 to the tree list and removes from the non-tree list
 		inTree.add(0);
 		notInTree.removeFirstOccurrence(0);
 		
+		//For loop equal to the number of nodes we need to insert in the tree
 		for(int j = 0; j < max_values.length-2; j++) {
 			//System.out.println("Iteration" + j);
 			max_value = Double.NaN;
+			//Iterate over all the nodes on the tree
 			Iterator<Integer> iterator = inTree.iterator();
 			while (iterator.hasNext()) {
 				Integer temp = iterator.next();
+				//Iterate over all the nodes not on the tree
 				Iterator<Integer> not_iterator = notInTree.iterator();
 			    while(not_iterator.hasNext()) {
 			    	Integer temp2 = not_iterator.next();
+			    	//Check id this given position is not NaN
 			    	if(Double.isNaN(alpha_list[temp.intValue()][temp2.intValue()]) == false) {
+			    		//If no maximum has been defined yet, then this is attributed as the maximum
 			    		if(Double.isNaN(max_value)) {
 			    			max_value = alpha_list[temp.intValue()][temp2.intValue()];
 			    			max_node = temp2.intValue();
 			    			parent = temp.intValue();
-			    		}else {
+			    		}
+			    		//Compare with the actual maximum and update the value if higher
+			    		else {
 			    			if(alpha_list[temp.intValue()][temp2.intValue()] > max_value) {
 			    				max_value = alpha_list[temp.intValue()][temp2.intValue()];
 				    			max_node = temp2.intValue();
@@ -165,8 +183,7 @@ public class TreeClass implements Tree{
 			    }
 			}
 			
-			//System.out.println("Max value: " + max_value + "\tMax node: " + max_node + "\tParent: " + parent);
-			
+			//Update the alpha structure, the tree list, the not-in-tree list and the adjacency matrix with the new element
 			alpha_list[parent][max_node] = Double.NaN;
 			inTree.add(max_node);
 			adjacency_matrix[max_node][parent] = 1;
