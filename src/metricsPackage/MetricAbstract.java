@@ -20,6 +20,9 @@ public abstract class MetricAbstract<T> implements Metrics<T>{
 	 * List that stores the metric value (score) computed by the metric's evaluate() algorithm.
 	 */
 	ArrayList<Float> metricValues = new ArrayList<Float>();
+	/**
+	 * Stores the metric's weighted average.
+	 */
 	float avg;
 	
 	/**
@@ -45,6 +48,9 @@ public abstract class MetricAbstract<T> implements Metrics<T>{
 		Collections.sort(classes, new TComparator<T>());
 	}
 
+	/**
+	 * Prepares the correct output format, to be displayed in the terminal.
+	 */
 	@Override
 	public String toString()
 	{

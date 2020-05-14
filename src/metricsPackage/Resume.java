@@ -40,7 +40,10 @@ public class Resume {
 			if(r!=null) r.evaluate();
 		}
 	}
-
+	
+	/**
+	 * Prepares the correct output format, to be displayed on the terminal.
+	 */
 	@Override
 	public String toString() {
 		// print resume

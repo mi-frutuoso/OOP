@@ -2,6 +2,12 @@ package metricsPackage;
 
 //import java.util.ArrayList;
 
+/**
+ * Metric class that calculates the sensitivity, given two generic arrays: predicted and expected classes.
+ * Sensitivity is computed for each class and then a weighted average is computed.
+ *
+ * @param <T> Generic type that contains classification values.
+ */
 public class Sensitivity<T> extends MetricAbstract<T> {
 
 	//private ArrayList<Integer> TP = new ArrayList<Integer>();			// DEBUG purposes
@@ -16,6 +22,9 @@ public class Sensitivity<T> extends MetricAbstract<T> {
 		super(Ctest, res);
 	}
 	
+	/**
+	 * Computes sensitivity for each class and weighted average.
+	 */
 	@Override
 	public void evaluate() {
 		// array verification

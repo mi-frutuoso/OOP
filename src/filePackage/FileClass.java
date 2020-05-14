@@ -111,7 +111,6 @@ public class FileClass implements FileInterface{
 		        if(tr == null) return;
 		        // else, we proceed
 		        // translate classes into generic values
-		        //tr = new IDTranslator(classes);
 		        int[] intClasses = tr.translate(classes);
 
 		        // check translation array length
@@ -137,6 +136,9 @@ public class FileClass implements FileInterface{
 	    }
 	}
 
+	/**
+	 * Returns the column correspondent to the classes of an input dataset file.
+	 */
 	@Override
 	public String[] readClasses() {
 		try {

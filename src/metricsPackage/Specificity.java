@@ -2,6 +2,12 @@ package metricsPackage;
 
 //import java.util.ArrayList;
 
+/**
+ * Metric class that calculates the specificity, given two generic arrays: predicted and expected classes.
+ * Specificity is computed for each class and then a weighted average is computed.
+ *
+ * @param <T> Generic type that contains classification values.
+ */
 public class Specificity<T> extends MetricAbstract<T> {
 	
 	//private ArrayList<Integer> TN = new ArrayList<Integer>();			// DEBUG purposes
@@ -15,7 +21,10 @@ public class Specificity<T> extends MetricAbstract<T> {
 	public Specificity(T[] Ctest, T[] res){
 		super(Ctest, res);
 	}
-
+	
+	/**
+	 * Computes specificity for each class and weighted average.
+	 */
 	@Override
 	public void evaluate() {
 		// array verification

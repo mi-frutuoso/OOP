@@ -1,5 +1,11 @@
 package metricsPackage;
 
+/**
+ * Metric class that calculates the F1 score, given two generic arrays: predicted and expected classes.
+ * F1 score is computed for each class and then a weighted average is computed.
+ *
+ * @param <T> Generic type that contains classification values.
+ */
 public class F1Score<T> extends MetricAbstract<T> {
 	
 	/**
@@ -11,6 +17,9 @@ public class F1Score<T> extends MetricAbstract<T> {
 		super(Ctest, res);
 	}
 	
+	/**
+	 * Computes F1 score for each class and weighted average.
+	 */
 	@Override
 	public void evaluate() {
 		// array verification

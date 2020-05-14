@@ -12,9 +12,12 @@ import java.util.Comparator;
  */
 public class TComparator<T> implements Comparator<T> {
 
+	/**
+	 * Evaluates if two generic elements can be converted into numbers and compares them. If not, compares
+	 * by considering them Strings instead.
+	 */
 	@Override
 	public int compare(T o1, T o2) {
-		// TODO Auto-generated method stub
 		if(isNum(o1) && isNum(o2)) {
 			Number _o1, _o2;
 			try {

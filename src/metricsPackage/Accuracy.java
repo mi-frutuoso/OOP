@@ -1,10 +1,15 @@
 package metricsPackage;
 
+/**
+ * Metric class that calculates the classification accuracy, given two generic arrays: predicted and expected classes.
+ * Accuracy is computed by comparing the values of each array's instance.
+ *
+ * @param <T> Generic type that contains classification values.
+ */
 public class Accuracy<T> implements Metrics<T> {
 	
 	private T[] trueC;
 	private T[] res;
-	//private T[] predC;
 	private float acc;
 	
 	/**
@@ -16,7 +21,10 @@ public class Accuracy<T> implements Metrics<T> {
 		this.trueC = trueC;
 		this.res = res;
 	}
-
+	
+	/**
+	 * Computes global accuracy.
+	 */
 	@Override
 	public void evaluate() {
 		// TODO Auto-generated method stub
@@ -31,7 +39,10 @@ public class Accuracy<T> implements Metrics<T> {
 		
 		acc = (float)Ncorrect/(trueC.length);
 	}
-
+	
+	/**
+	 * Prepares the correct output format, to be displayed on the terminal.
+	 */
 	@Override
 	public String toString() {
 		return String.format("%.2f", acc);
