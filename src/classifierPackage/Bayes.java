@@ -8,6 +8,11 @@ import structuresPackage.GraphClass;
 
 import filePackage.*;
 
+/**
+ * 
+ * Implementation of a tree augmented naive Bayes classifier (TAN).
+ *
+ */
 public class Bayes implements Classifier{
 
 	private Tree tree;
@@ -24,12 +29,25 @@ public class Bayes implements Classifier{
 	private long test_time;
 	private StringBuffer features = new StringBuffer();
 	
+	/**
+	 * Constructs a Bayes classifier.
+	 * 
+	 * @param train_file String with the name of the file containing the training dataset.
+	 * @param test_file String with the name of the file containing the test dataset.
+	 * @param score String with the type of score to be used for the computation of the nodes parameters.
+	 */
 	public Bayes(String train_file, String test_file, String score) {
 		this.train_file = train_file;
 		this.test_file = test_file;
 		this.score = score;
 	}
 
+	/**
+	 * Reads the contents of the train file and
+	 * trains the classifier by building a supporting graph followed by a directed tree.<br>
+	 * It computes the time spent building the classifier.
+	 * It is able to handle classes not in numeric form by performing a translation.
+	 */
 	@Override
 	public void train() {
 		long start_time = System.nanoTime();
@@ -43,6 +61,10 @@ public class Bayes implements Classifier{
 		train_time = System.nanoTime() - start_time;
 	}
 
+	/**
+	 * Predicts the outcome with the model built by the <b>predict</b> method for a given test file.<br>
+	 * It also keeps track of the time spent predicting the results.
+	 */
 	@Override
 	public void predict() {
 		long start_time = System.nanoTime();
@@ -52,11 +74,18 @@ public class Bayes implements Classifier{
 		test_time = System.nanoTime() - start_time;
 	}
 
+	/**
+	 * Returns the results predicted in <b>predict</b> as an array of Strings.
+	 */
 	@Override
 	public String[] results() {
 		return tr.reverse(tree.returnClassification());
 	}
 	
+	/**
+	 * Returns a String containing the structure of the originated tree, the time spent building the classifier, 
+	 * the predicted results for the test dataset provided and the time spent performing the prediction.
+	 */
 	@Override
 	public String toString() {
 		String[] classification = results();
