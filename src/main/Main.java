@@ -18,7 +18,7 @@ public class Main {
 			String train = args[0];
 			String test = args[1];
 			String score = args[2];
-			Classifier bayes = new Bayes(train, test, score);
+			Classifier bayes = new Bayes(train, test, score, (args.length!=4) ? false : true);
 			bayes.train();
 			bayes.predict();
 			System.out.print(bayes);
@@ -38,14 +38,10 @@ public class Main {
 	private static boolean validUI(String[] args) {
 		
 		if(args.length == 1 && args[0].compareTo("-h") == 0) {
-			System.out.println("Usage:\n\t$ java -jar bayes.jar [train] [test] [score]\n\n\t-> [train]\t: path of the train set file\n\t-> [test]\t: path of the test set file\n\t-> [score]\t: \"LL\" or \"MDL\"\n");
+			System.out.println("Usage:\n\t$ java -jar bayes.jar [train] [test] [score] <d>\n\n\t-> [train]\t: path of the train set file\n\t-> [test]\t: path of the test set file\n\t-> [score]\t: \"LL\" or \"MDL\"\n\t-> <d>\t\t: optional parameter for debug\n");
 			return false;
 		}
-		else if(args.length != 3) {
-			System.out.println("Incorrect usage. Type \"java -jar bayes.jar -h\" for help.");
-			return false;
-		}
-		else {
+		else if(args.length == 3 || args.length == 4) {
 			File tmpDir = new File(args[0]);
 			if(!tmpDir.exists()) {
 				System.out.println("Input train file not found.");
@@ -61,6 +57,10 @@ public class Main {
 				System.out.println("Unrecognized score. Type \"java -jar bayes.jar -h\" for help.");
 				return false;
 			}
+		}
+		else {		
+			System.out.println("Incorrect usage. Type \"java -jar bayes.jar -h\" for help.");
+			return false;
 		}
 		return true;
 	}

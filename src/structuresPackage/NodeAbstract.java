@@ -1,5 +1,7 @@
 package structuresPackage;
 
+import java.util.Arrays;
+
 /**
  * Abstract implementation of the <b>Node</b> interface.<br>
  * It defines some attributes and constructors and gives the implementation of certain methods that are the same for every type of node.
@@ -175,4 +177,14 @@ public abstract class NodeAbstract implements Node{
 			}
 		}
 	}
+
+	/**
+	 * Returns a string with the values of the alphas and thetas for debug information.
+	 */
+	@Override
+	public String toString() {
+		return "Node: " + node_id + "\tParent: " + parent + " :\nThetas:\n" + Arrays.deepToString(theta) + "\n";
+	}
+	
+	
 }

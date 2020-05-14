@@ -28,6 +28,7 @@ public class Bayes implements Classifier{
 	private long train_time;
 	private long test_time;
 	private StringBuffer features = new StringBuffer();
+	private boolean debug;
 	
 	/**
 	 * Constructs a Bayes classifier.
@@ -35,11 +36,13 @@ public class Bayes implements Classifier{
 	 * @param train_file String with the name of the file containing the training dataset.
 	 * @param test_file String with the name of the file containing the test dataset.
 	 * @param score String with the type of score to be used for the computation of the nodes parameters.
+	 * @param debug Allows to perform debug or not.
 	 */
-	public Bayes(String train_file, String test_file, String score) {
+	public Bayes(String train_file, String test_file, String score, boolean debug) {
 		this.train_file = train_file;
 		this.test_file = test_file;
 		this.score = score;
+		this.debug = debug;
 	}
 
 	/**
@@ -56,7 +59,7 @@ public class Bayes implements Classifier{
 		file.readFile();
 		graph = new GraphClass(matrix[0], max_values[0], score);
 		graph.makeStruct();
-		tree = new TreeClass(matrix[0], max_values[0], graph.returnNodes(), features.toString());
+		tree = new TreeClass(matrix[0], max_values[0], graph.returnNodes(), features.toString(), debug);
 		tree.makeStruct();
 		train_time = System.nanoTime() - start_time;
 	}

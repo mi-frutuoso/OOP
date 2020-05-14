@@ -1,5 +1,6 @@
 package structuresPackage;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -17,6 +18,7 @@ public class TreeClass implements Tree{
 	int[][] adjacency_matrix;
 	int[] results;
 	String feature_labels;
+	boolean debug;
 	
 	/**
 	 * Constructs a tree.
@@ -24,13 +26,15 @@ public class TreeClass implements Tree{
 	 * @param matrix The testing data from which predictions will be made.
 	 * @param max_values Contains maximum of each set of features. 
 	 * @param nodes Array containing previously generated nodes with computed alphas.
-	 * @param feature_labels 
+	 * @param feature_labels Contains a string with the features labels
+	 * @param debug To display debug information or not
 	 */
-	public TreeClass(int[][] matrix, int[] max_values, Node[] nodes, String feature_labels) {
+	public TreeClass(int[][] matrix, int[] max_values, Node[] nodes, String feature_labels, boolean debug) {
 		this.matrix = matrix;
 		this.max_values = max_values;
 		this.nodes = nodes;
 		this.feature_labels = feature_labels;
+		this.debug = debug;
 	}
 
 	/**
@@ -183,8 +187,7 @@ public class TreeClass implements Tree{
 			    }
 			}
 			
-			//Update the alpha structure, the tree list, the not-in-tree list and the adjacency matrix with the new element
-			alpha_list[parent][max_node] = Double.NaN;
+			//Update the tree list, the not-in-tree list and the adjacency matrix with the new element
 			inTree.add(max_node);
 			adjacency_matrix[max_node][parent] = 1;
 			notInTree.removeFirstOccurrence(max_node);
@@ -200,7 +203,7 @@ public class TreeClass implements Tree{
 	}
 	
 	/**
-	 * Override of toString method, allows to print the object tree structure.
+	 * Override of toString method, allows to print the object tree structure and debug information.
 	 */
 	@Override
 	public String toString() {
@@ -225,6 +228,15 @@ public class TreeClass implements Tree{
 					list.add(j);
 				}
 			}
+		}
+		
+		if(debug) {
+			ret.append("====DEBUG====\n");
+			for(int i = 0; i < max_values.length-1; i++) {
+				ret.append(nodes[i].toString());
+				ret.append("Alphas:\n" + Arrays.toString(alpha_list[i]) + "\n");
+			}
+			ret.append("====DEBUG====\n");
 		}
 		
 		return ret.toString();
