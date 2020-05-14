@@ -7,6 +7,7 @@ public abstract class NodeAbstract implements Node{
 	int[] max_values;
 	int node_id;
 	int parent;
+	static final double N_ = 0.5;
 	
 	public NodeAbstract() {
 		System.out.println("No data supplied.");
@@ -35,7 +36,7 @@ public abstract class NodeAbstract implements Node{
 			
 			int[] Nc = new int[max_values[max_values.length-1]+1];
 			int N = training.length;
-			double N_ = 0.5;
+			
 			
 			for(int n = 0; n < training.length; n++) {
 				Nc[training[n][training[n].length-1]]++;
@@ -51,7 +52,6 @@ public abstract class NodeAbstract implements Node{
 				
 				int[][][] Nijkc = new int[max_values[parent]+1][max_values[node_id]+1][max_values[max_values.length-1]+1];
 				int[][] Nijc = new int[max_values[parent]+1][max_values[max_values.length-1]+1];
-				double N_ = 0.5;
 				
 				for(int n = 0; n < training.length; n++) {
 					Nijkc[training[n][parent]][training[n][node_id]][training[n][training[n].length-1]]++;
@@ -70,7 +70,6 @@ public abstract class NodeAbstract implements Node{
 				
 				int[][] Nijkc = new int[max_values[node_id]+1][max_values[max_values.length-1]+1];
 				int[] Nijc = new int[max_values[max_values.length-1]+1];
-				double N_ = 0.5;
 				
 				for(int n = 0; n < training.length; n++) {
 					Nijkc[training[n][node_id]][training[n][training[n].length-1]]++;
