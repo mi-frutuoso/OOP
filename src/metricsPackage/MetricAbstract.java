@@ -13,17 +13,17 @@ public abstract class MetricAbstract<T> implements Metrics<T>{
 	/**
 	 * List that stores generic classification values (classes).
 	 */
-	ArrayList<T> classes = new ArrayList<T>();
-	T[] Ctest;
-	T[] res;
+	protected ArrayList<T> classes = new ArrayList<T>();
+	protected T[] Ctest;
+	protected T[] res;
 	/**
 	 * List that stores the metric value (score) computed by the metric's evaluate() algorithm.
 	 */
-	ArrayList<Float> metricValues = new ArrayList<Float>();
+	protected ArrayList<Float> metricValues = new ArrayList<Float>();
 	/**
 	 * Stores the metric's weighted average.
 	 */
-	float avg;
+	protected float avg;
 	
 	/**
 	 * 
@@ -44,7 +44,7 @@ public abstract class MetricAbstract<T> implements Metrics<T>{
 	 * store its values numerically and/or alphabetically. Results can be then presented in a sorted way.
 	 * 
 	 */
-	void sortClasses() {
+	protected void sortClasses() {
 		Collections.sort(classes, new TComparator<T>());
 	}
 

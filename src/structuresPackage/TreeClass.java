@@ -10,15 +10,15 @@ import java.util.LinkedList;
  */
 public class TreeClass implements Tree{
 	
-	Node[] nodes;
-	Node C;
-	int[][] matrix;
-	int[] max_values;
-	double[][] alpha_list;
-	int[][] adjacency_matrix;
-	int[] results;
-	String feature_labels;
-	boolean debug;
+	private Node[] nodes;
+	private Node C;
+	private int[][] matrix;
+	private int[] max_values;
+	private double[][] alpha_list;
+	private int[][] adjacency_matrix;
+	private int[] results;
+	private String feature_labels;
+	private boolean debug;
 	
 	/**
 	 * Constructs a tree.

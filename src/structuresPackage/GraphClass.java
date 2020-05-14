@@ -6,10 +6,10 @@ package structuresPackage;
  */
 public class GraphClass implements Graph{
 	
-	Node[] nodes;
-	int[][] matrix;
-	int[] max_values;
-	String score;
+	private Node[] nodes;
+	private int[][] matrix;
+	private int[] max_values;
+	private String score;
 	
 	/**
 	 * Constructs a graph

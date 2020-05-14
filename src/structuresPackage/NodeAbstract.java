@@ -12,28 +12,28 @@ public abstract class NodeAbstract implements Node{
 	/**
 	 * Array that contains the values of the Alpha parameters.
 	 */
-	double[] alpha;
+	protected double[] alpha;
 	/**
 	 * Double array that contains the values of the Theta parameters.
 	 */
-	double[][][] theta;
+	protected double[][][] theta;
 	/**
 	 * Double array that holds the values of the training data.
 	 */
-	int[][] training;
+	protected int[][] training;
 	/**
 	 * Array that holds the maximum value of each attribute and the class.
 	 */
-	int[] max_values;
+	protected int[] max_values;
 	/**
 	 * Node identification.
 	 */
-	int node_id;
+	protected int node_id;
 	/**
 	 * Parent identification
 	 */
-	int parent;
-	static final double N_ = 0.5;
+	protected int parent;
+	protected static final double N_ = 0.5;
 	
 	/**
 	 * No-arg constructor that aborts the execution.
