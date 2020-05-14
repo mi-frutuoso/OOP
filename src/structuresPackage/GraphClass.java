@@ -12,7 +12,7 @@ public class GraphClass implements Graph{
 	String score;
 	
 	/**
-	 * Construct a graph
+	 * Constructs a graph
 	 * 
 	 * @param matrix A matrix containing training data, with features and classes.
 	 * @param max_values Contains maximum of each set of features.
@@ -25,7 +25,7 @@ public class GraphClass implements Graph{
 	}
 
 	/**
-	 * Creates nodes and computes their using the chosen score model to generate the graph.
+	 * Creates nodes and computes their score using the chosen score model to generate the graph.
 	 * 
 	 */
 	@Override

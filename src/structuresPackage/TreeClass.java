@@ -3,6 +3,10 @@ package structuresPackage;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+/**
+ * Generates a tree (graph) implemented as an adjacency matrix with accessible nodes.
+ * 
+ */
 public class TreeClass implements Tree{
 	
 	Node[] nodes;
@@ -14,6 +18,14 @@ public class TreeClass implements Tree{
 	int[] results;
 	String feature_labels;
 	
+	/**
+	 * Constructs a tree.
+	 * 
+	 * @param matrix The testing data from which predictions will be made.
+	 * @param max_values Contains maximum of each set of features. 
+	 * @param nodes Array containing previously generated nodes with computed alphas.
+	 * @param feature_labels 
+	 */
 	public TreeClass(int[][] matrix, int[] max_values, Node[] nodes, String feature_labels) {
 		this.matrix = matrix;
 		this.max_values = max_values;
@@ -21,6 +33,11 @@ public class TreeClass implements Tree{
 		this.feature_labels = feature_labels;
 	}
 
+	/**
+	 * Generates the tree.
+	 * The previously generated nodes are used to get an array of alpha's, necessary to build the adjacency matrix that represents the tree.
+	 * New nodes of features are created with parameters theta and their parent's index; it's also created a new node C (class).
+	 */
 	@Override
 	public void makeStruct() {
 		alpha_list = new double[max_values.length-1][max_values.length-1];
@@ -52,6 +69,12 @@ public class TreeClass implements Tree{
 		
 	}
 
+	/**
+	 * Predicts classes for the sets of features in test data.
+	 * 
+	 * 
+	 * @param test_matrix Test data in a two-dimensional matrix format.
+	 */
 	@Override
 	public void predict(int[][] test_matrix) {
 		
@@ -90,11 +113,18 @@ public class TreeClass implements Tree{
 		//System.out.println(Arrays.toString(results));
 	}
 
+	/**
+	 * Getter to the array of Node objects.
+	 */
 	@Override
 	public Node[] returnNodes() {
 		return nodes;
 	}
 	
+	/**
+	 * Defines the adjacency between nodes.
+	 * 
+	 */
 	private void buildAdjacencyMatrix() {
 		double max_value;
 		int max_node = 0;
@@ -144,11 +174,17 @@ public class TreeClass implements Tree{
 		}
 	}
 
+	/**
+	 * Getter for the classification results.
+	 */
 	@Override
 	public int[] returnClassification() {
 		return results;
 	}
 	
+	/**
+	 * Override of toString method, allows to print the object tree structure.
+	 */
 	@Override
 	public String toString() {
 		LinkedList<Integer> list = new LinkedList<Integer>();
