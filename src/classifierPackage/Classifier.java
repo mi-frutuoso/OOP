@@ -2,9 +2,9 @@ package classifierPackage;
 
 /**
  * 
- * Interface that provides the classifier. It contains 3 methods:
- * - 'train': trains the classifier with the train dataset;
- * - 'predict' : predicts the class values for a specific test dataset;
+ * Service that provides the classifier. It contains 3 methods:<br>
+ * - 'train': trains the classifier with the train dataset;<br>
+ * - 'predict' : predicts the class values for a specific test dataset;<br>
  * - 'results' : returns the results obtained in 'predict'.
  *
  */
