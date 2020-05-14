@@ -1,5 +1,9 @@
 package structuresPackage;
 
+/**
+ * Generates a graph which nodes are accessible and implement two score models, MDL and LL.
+ *
+ */
 public class GraphClass implements Graph{
 	
 	Node[] nodes;
@@ -7,12 +11,23 @@ public class GraphClass implements Graph{
 	int[] max_values;
 	String score;
 	
+	/**
+	 * Construct a graph
+	 * 
+	 * @param matrix A matrix containing training data, with features and classes.
+	 * @param max_values Contains maximum of each set of features.
+	 * @param score The score associated with each prediction.
+	 */
 	public GraphClass(int[][] matrix, int[] max_values, String score) {
 		this.matrix = matrix;
 		this.max_values = max_values;
 		this.score = score;
 	}
 
+	/**
+	 * Creates nodes and computes their using the chosen score model to generate the graph.
+	 * 
+	 */
 	@Override
 	public void makeStruct() {
 		
@@ -39,6 +54,10 @@ public class GraphClass implements Graph{
 		}
 	}
 
+	/**
+	 * Getter to the array of Node objects.
+	 * 
+	 */
 	@Override
 	public Node[] returnNodes() {
 		return nodes;
