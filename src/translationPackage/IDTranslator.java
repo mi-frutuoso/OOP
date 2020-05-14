@@ -10,13 +10,6 @@ public class IDTranslator implements Translator {
 	private String[] original;								// may contain duplicates
 	private ArrayList<String> seed;							// 'original' without duplicates
 	private int Nclasses;									// Number of classes identified
-	/**
-	 * 
-	 * @param classes List of the (original) identified classes stored as strings.
-	 */
-//	public IDTranslator(String[] classes) {
-//		original = classes;
-//	}
 	
 	public IDTranslator() {
 	}

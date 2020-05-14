@@ -28,7 +28,8 @@ public class FileClass implements FileInterface{
  	 * @param arg_matrix Three-dimensional matrix in the format [1][N][N], contains file contents. 
 	 * @param filename Canonical or relative path to the training/test file.
 	 * @param max_values Two-dimensional matrix in the format [1][N], contains maximum of each set of features.
-	 * @param classes Array containing the classes column, converted to strings. 
+	 * @param tr Translator that allows to convert read classes from input file into integers.
+	 * @param Xlabels Variable where will be appended the labels of the features, corresponding to the first line of the read input file.
 	 */
 	public FileClass(int[][][] arg_matrix, String filename, int[][] max_values, Translator tr, StringBuffer Xlabels) {
 		this.matrix = arg_matrix;

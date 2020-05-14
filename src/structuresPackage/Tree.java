@@ -14,7 +14,7 @@ public interface Tree extends Graph{
 	
 	/**
 	 * Getter of the classifications predicted.
-	 * @return
+	 * @return Array of predicted classes expressed as integers.
 	 */
 	public int[] returnClassification();
 }
